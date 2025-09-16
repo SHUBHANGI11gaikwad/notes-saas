@@ -11,6 +11,7 @@ export default async function handler(req, res) {
 
   const allowedOrigins = [
   'http://localhost:3000',
+  'http://localhost:3001',
   'https://notes-saas-frontend-three.vercel.app'
 ];
  
