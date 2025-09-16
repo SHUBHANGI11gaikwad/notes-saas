@@ -9,14 +9,29 @@ console.log("TOKEN:", req.headers.authorization); // Debug
 console.log("USER:", user); // Debug
 
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+   const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'https://notes-saas-frontend-three.vercel.app'
+];
+ 
+res.setHeader('Access-Control-Allow-Origin', origin);
+res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE, OPTIONS');
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
+  // Handle preflight OPTIONS
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
+    res.status(200).end();  // Just return OK
     return;
   }
+
 
   if (!user) {
     return res.status(401).json({ error: "Unauthorized" });
