@@ -8,20 +8,28 @@ const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || "supersupersecretkey";
 
 export default async function handler(req, res) {
+
+  const allowedOrigins = [
+  'http://localhost:3000',
+  'https://notes-saas-frontend-three.vercel.app'
+];
  
-res.setHeader('Access-Control-Allow-Origin', 'https://notes-saas-frontend-three.vercel.app');
+res.setHeader('Access-Control-Allow-Origin', origin);
 res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE, OPTIONS');
 res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
+const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  // Handle preflight OPTIONS
   if (req.method === 'OPTIONS') {
-    // CORS headers डालो (optional, better practice)
-    res.setHeader('Access-Control-Allow-Origin', 'https://notes-saas-frontend-three.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.status(200).end();
+    res.status(200).end();  // Just return OK
     return;
   }
-
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: "Use POST" });
