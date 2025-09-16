@@ -9,14 +9,14 @@ const JWT_SECRET = process.env.JWT_SECRET || "supersupersecretkey";
 
 export default async function handler(req, res) {
  
-res.setHeader('Access-Control-Allow-Origin', '*');
-res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+res.setHeader('Access-Control-Allow-Origin', 'https://notes-saas-frontend-three.vercel.app');
+res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE, OPTIONS');
 res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
   if (req.method === 'OPTIONS') {
     // CORS headers डालो (optional, better practice)
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Origin', 'https://notes-saas-frontend-three.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.status(200).end();
     return;
