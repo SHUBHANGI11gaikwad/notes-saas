@@ -7,7 +7,7 @@ export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const BASE_URL = process.env.BASEURL;
+  // const BASE_URL = process.env.BASEURL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +15,7 @@ export default function Login({ onLogin }) {
     try {
       // Always use /api/auth/login
       const res = await axios.post(
-        `${BASE_URL}/api/auth/login`,
+        `/api/auth/login`,
         { email, password }
       );
       console.log("Login Response:", res);

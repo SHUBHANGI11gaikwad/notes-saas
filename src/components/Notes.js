@@ -12,14 +12,14 @@ export default function Notes() {
   const [page, setPage] = useState(1);
   const limit = 5;
 
-  const BASE_URL = process.env.BASE_URL || "http://localhost:3000/api";
+  // const BASE_URL = process.env.BASE_URL || "http://localhost:3000/api";
 
   // fetchNotes—useCallback
   const fetchNotes = useCallback(async () => {
     try {
       const skip = (page - 1) * limit;
       const token = localStorage.getItem("token");
-      const url = `${BASE_URL}/notes?limit=${limit}&skip=${skip}&search=${search}`;
+      const url = `/notes?limit=${limit}&skip=${skip}&search=${search}`;
       console.log("Fetching notes with token:", token);
       const res = await axios.get(url, {
         headers: { Authorization: `Bearer ${token}` }
@@ -28,7 +28,7 @@ export default function Notes() {
     } catch (error) {
       console.error("Error fetching notes:", error.response || error);
     }
-  }, [page, search, BASE_URL]);
+  }, [page, search]);
 
 
   useEffect(() => { fetchNotes(); }, [fetchNotes]);
