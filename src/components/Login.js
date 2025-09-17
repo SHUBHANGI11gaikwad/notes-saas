@@ -15,7 +15,7 @@ export default function Login({ onLogin }) {
     try {
       // Always use /api/auth/login
       const res = await axios.post(
-        `http://localhost:3000/api/auth/login`,
+        `${BASE_URL}/api/auth/login`,
         { email, password }
       );
       console.log("Login Response:", res);
