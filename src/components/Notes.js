@@ -19,7 +19,7 @@ export default function Notes() {
     try {
       const skip = (page - 1) * limit;
       const token = localStorage.getItem("token");
-      const url = `/notes?limit=${limit}&skip=${skip}&search=${search}`;
+      const url = `/api/notes?limit=${limit}&skip=${skip}&search=${search}`;
       console.log("Fetching notes with token:", token);
       const res = await axios.get(url, {
         headers: { Authorization: `Bearer ${token}` }
@@ -41,14 +41,14 @@ export default function Notes() {
 
   if (editId) {
     await axios.put(
-      `${BASE_URL}/notes/${editId}`,
+      `/api/notes/${editId}`,
       { title, content },
       { headers: { Authorization: `Bearer ${token}` } }
     );
     setEditId(null);
   } else {
     await axios.post(
-      `${BASE_URL}/notes`,
+      `/api/notes`,
       { title, content },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -70,7 +70,7 @@ export default function Notes() {
   const handleDelete = async (id) => {
   const token = localStorage.getItem("token");
   await axios.delete(
-    `${BASE_URL}/notes/${id}`,
+    `/api/notes/${id}`,
     { headers: { Authorization: `Bearer ${token}` } }
   );
   fetchNotes();
