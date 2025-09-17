@@ -103,6 +103,18 @@ span.let{
   font-weight: 600;
 }
 
+.note-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.note-row span {
+  flex: 1;
+}
+
 .btn {
   background: #2a4172;
   color: #fff;
@@ -129,9 +141,9 @@ span.let{
 .btn-delete {
   background: #d7263d;
   color: #fff;
-  padding: 8px 20px;
-  font-size: 1rem;
- 
+ /*  padding: 8px 20px;
+  font-size: 1rem; */
+  
 
 }
 
@@ -146,8 +158,10 @@ span.let{
 }
 
 .btn-edit{
- padding: 5px 20px;
+ 
+  /* padding: 5px 20px; */
   font-size: 1rem;
+  
 ;
 }
 

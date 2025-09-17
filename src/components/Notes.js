@@ -107,9 +107,14 @@ export default function Notes() {
       <ul>
         {notes.map(note => (
           <li key={note.id}>
-            <b>{note.title}</b>: {note.content}
+            <div className="note-row">
+            <span>
+            <b>{note.title}</b>: 
+            {note.content && " " + note.content}
+            </span>
             <button className="btn btn-edit" onClick={() => startEdit(note)}>Edit</button>
             <button className="btn btn-delete" onClick={() => handleDelete(note.id)}>Delete</button>
+            </div>
           </li>
         ))}
       </ul>
