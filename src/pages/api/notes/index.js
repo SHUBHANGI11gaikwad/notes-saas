@@ -5,32 +5,8 @@ const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
   const user = verifyToken(req);
-console.log("TOKEN:", req.headers.authorization); // Debug
-console.log("USER:", user); // Debug
-
-
-   const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:3001',
-  'https://notes-saas-frontend-three.vercel.app'
-];
- 
-res.setHeader('Access-Control-Allow-Origin', origin);
-res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE, OPTIONS');
-res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-  // Handle preflight OPTIONS
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();  // Just return OK
-    return;
-  }
+  console.log("TOKEN:", req.headers.authorization); // Debug
+  console.log("USER:", user); // Debug
 
 
   if (!user) {
@@ -59,13 +35,13 @@ const origin = req.headers.origin;
     console.log("BODY:", req.body);     // Debug
 
     if (user.plan === "free") {
-      const noteCount = await prisma.note.count({
-        where: { tenantId: user.tenantId }
-      });
-      if (noteCount >= 5) {
-        return res.status(403).json({ error: "Free plan note limit reached! Upgrade for more notes." });
-      }
-    }
+  const noteCount = await prisma.note.count({
+    where: { tenantId: user.tenantId }
+  });
+  if (noteCount >= 10) { // <-- increased limit
+    return res.status(403).json({ error: "Free plan note limit reached! Upgrade for more notes." });
+  }
+}
 
     if (!title || !content) {
       return res.status(400).json({ error: "Title and content required" });

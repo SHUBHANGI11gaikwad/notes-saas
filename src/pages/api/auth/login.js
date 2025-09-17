@@ -8,28 +8,33 @@ const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || "supersupersecretkey";
 
 export default async function handler(req, res) {
-
+  console.log(req);
+  console.log(res);
   const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:3001',
-  'https://notes-saas-frontend-three.vercel.app'
-];
- 
-res.setHeader('Access-Control-Allow-Origin', origin);
-res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE, OPTIONS');
-res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://localhost:3001',
+   'https://notes-saas-frontend-three.vercel.app'
+  ];
 
-const origin = req.headers.origin;
+  const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', 'null');
   }
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  // Handle preflight OPTIONS
+  // Always respond to preflight OPTIONS with 200 and CORS headers
   if (req.method === 'OPTIONS') {
-    res.status(200).end();  // Just return OK
+    res.status(200).end();
     return;
+  }
+
+  // Only block disallowed origins for actual POST requests
+  if (!allowedOrigins.includes(origin)) {
+    return res.status(403).json({ error: 'CORS: Origin not allowed' });
   }
 
   if (req.method !== 'POST') {
@@ -71,7 +76,6 @@ const origin = req.headers.origin;
   );
 
 
-// Login handler में यह array से lookup करो
 
 
   return res.status(200).json({
