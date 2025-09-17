@@ -12,7 +12,7 @@ export default function Notes() {
   const [page, setPage] = useState(1);
   const limit = 5;
 
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:3000/api";
+  const BASE_URL = process.env.BASE_URL || "http://localhost:3000/api";
 
   // fetchNotes—useCallback
   const fetchNotes = useCallback(async () => {

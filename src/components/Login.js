@@ -7,7 +7,7 @@ export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const BASE_URL = process.env.BASEURL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
