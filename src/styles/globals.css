@@ -186,10 +186,21 @@ span.let{
 
 /* Responsive for mobile */
 @media (max-width:490px) {
-  .center-card {
+  .note-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.note-row .btn-edit,
+.note-row .btn-delete {
+  margin-top: 6px;
+  width: 100%;
+}
+
+ /* .center-card {
     max-width: 99vw;
     min-width: unset;
     padding: 20px 7px 15px;
   }
-  form input, form textarea { font-size: 1rem; }
+  form input, form textarea { font-size: 1rem; }  */
 }
